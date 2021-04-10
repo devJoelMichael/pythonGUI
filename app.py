@@ -9,6 +9,7 @@ apps = []
 def addApp():
 
     for widget in frame.winfo_children():
+        widget.destory()
 
     filename = filedialog.askopenfilename(
         initialdir="/", title="Select File", filetypes=(("executables", "*.app"), ("all files", "*.*")))
