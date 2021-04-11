@@ -9,7 +9,7 @@ apps = []
 def addApp():
 
     for widget in frame.winfo_children():
-        widget.destory()
+        widget.destroy()
 
     filename = filedialog.askopenfilename(
         initialdir="/", title="Select File", filetypes=(("executables", "*.app"), ("all files", "*.*")))
@@ -18,6 +18,11 @@ def addApp():
     for app in apps:
         label = tk.Label(frame, text=app, bg="gray")
         label.pack()
+
+
+def runApps():
+    for app in apps:
+        os.startfile(app)
 
 
 canvas = tk.Canvas(root, height=700, width=700, bg="#263D42")
@@ -31,7 +36,12 @@ openFile = tk.Button(root, text="Open File", padx=10,
 openFile.pack()
 
 runApps = tk.Button(root, text="Run Apps", padx=10,
-                    pady=5, fg="white", bg="#263D42")
+                    pady=5, fg="white", bg="#263D42", command=runApps)
 runApps.pack()
 
 root.mainloop()
+
+# when closing app we want it to save the presets we created
+with open('save.txt', 'w') as f:
+    for app in apps:
+        f.write(app + ',')
